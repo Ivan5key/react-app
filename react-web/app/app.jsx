@@ -7,13 +7,7 @@ var App = React.createClass({displayName: 'Hello',
   render: function() {
     return (
 <div>
-    <div className="one">
-
-        <div className="right">
-        <div className="top"></div>
-    </div>
-    </div>
-    <div className="left"></div>
+    Start state project
 </div>
     );
   }
