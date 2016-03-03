@@ -1,7 +1,7 @@
 'use strict';
 var path = require('path');
 var webpack = require('webpack');
-var sprite = require('sprity-webpack-plugin');
+var sprity = require('sprity-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -9,16 +9,21 @@ module.exports = {
       'webpack/hot/dev-server',
       './main.js'
   ],
+  debug: true,
+  devtool: '#source-map',
   plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new sprite({
-            out: __dirname + './sprites/',
-            src: __dirname + ['./img/'],
-            processor: 'less',
-            style: __dirname + './style/app.less',
-            split: true,
-            name: 'icons'
-        },{})
+        new sprity({
+            'src':'/img/*.png',
+            'out':'/sprites/',
+            'split': true,
+            'name':'/imageSprite',
+            'style':'/styles/sprite.less',
+            'processor': 'less',
+            'template':'/sprites/template.hbs',
+            'dimension': [{ratio: 1, dpi: 72}],
+            'engine': 'sprity-gm'
+        })
     ],
   output: {
       path: path.join(__dirname, 'build'),
@@ -45,6 +50,9 @@ module.exports = {
     }, {
         test: /\.less$/,
         loader: 'style-loader!css-loader!less-loader'
+    },{
+        test: /\.png$/,
+        loader: 'file-loader'
     }
     ]
 },
