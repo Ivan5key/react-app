@@ -1,6 +1,7 @@
 'use strict';
 var path = require('path');
 var webpack = require('webpack');
+var sprite = require('sprity-webpack-plugin');
 
 module.exports = {
   entry: [
@@ -9,7 +10,15 @@ module.exports = {
       './main.js'
   ],
   plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new sprite({
+            out: __dirname + './sprites/',
+            src: __dirname + ['./img/'],
+            processor: 'less',
+            style: __dirname + './style/app.less',
+            split: true,
+            name: 'icons'
+        },{})
     ],
   output: {
       path: path.join(__dirname, 'build'),
